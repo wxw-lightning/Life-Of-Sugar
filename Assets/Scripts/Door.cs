@@ -13,23 +13,38 @@ public class Door : MonoBehaviour
         PlayerController player = other.GetComponent<PlayerController>();
         if (player != null)
         {
-            if (player.HasKey())
+            int keysRequired = GetKeysRequired();
+            
+            if (player.GetKeyCount() >= keysRequired)
             {
-                OpenDoor(player);
+                OpenDoor(player, keysRequired);
             }
             else
             {
-                Debug.Log("Need a key to open this door!");
+                Debug.Log("Need " + keysRequired + " keys to open this door! You have: " + player.GetKeyCount());
             }
         }
     }
     
-    void OpenDoor(PlayerController player)
+    int GetKeysRequired()
+    {
+        if (GameManager.Instance != null)
+        {
+            return GameManager.Instance.GetKeysRequired();
+        }
+        return 1;
+    }
+    
+    void OpenDoor(PlayerController player, int keysRequired)
     {
         if (!isOpen)
         {
             isOpen = true;
-            player.UseKey();
+            
+            for (int i = 0; i < keysRequired; i++)
+            {
+                player.UseKey();
+            }
             
             if (GameManager.Instance != null)
             {
@@ -41,7 +56,7 @@ public class Door : MonoBehaviour
                 doorVisual.SetActive(false);
             }
             
-            Debug.Log("Door opened! Score added: " + scoreValue);
+            Debug.Log("Door opened! Used " + keysRequired + " keys. Score added: " + scoreValue);
         }
     }
 }

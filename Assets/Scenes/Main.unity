@@ -1064,7 +1064,7 @@ MonoBehaviour:
   spawnDistance: 50
   minSpawnInterval: 2
   maxSpawnInterval: 5
-  keySpawnRate: 0.5
+  keySpawnRate: 0.6
   laneDistance: 3
   player: {fileID: 1506598829}
 --- !u!4 &1931695972
