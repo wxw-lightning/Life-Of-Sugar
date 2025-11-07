@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,15 +9,16 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     public Text scoreText;
     public Text keysText;
+    public Text livesText;
+    public Text gameOverText;
     
-    [Header("Difficulty Settings")]
-    public float difficultyIncreaseTime = 30f;
-    public int keysRequiredAfterIncrease = 3;
+    [Header("Game Settings")]
+    public int startingLives = 3;
     
     private int score = 0;
+    private int lives;
     private PlayerController player;
-    private float gameTime = 0f;
-    private int currentKeysRequired = 1;
+    private bool gameOver = false;
     
     void Awake()
     {
@@ -33,20 +35,23 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        lives = startingLives;
+        gameOver = false;
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(false);
+        }
         UpdateUI();
     }
     
     void Update()
     {
-        gameTime += Time.deltaTime;
-        
-        if (gameTime >= difficultyIncreaseTime && currentKeysRequired == 1)
-        {
-            currentKeysRequired = keysRequiredAfterIncrease;
-            Debug.Log("Difficulty increased! Doors now require " + currentKeysRequired + " keys!");
-        }
-        
         UpdateUI();
+        
+        if (gameOver && Input.GetKeyDown(KeyCode.R))
+        {
+            RestartGame();
+        }
     }
     
     public void AddScore(int points)
@@ -66,6 +71,47 @@ public class GameManager : MonoBehaviour
         {
             keysText.text = "Keys: " + player.GetKeyCount();
         }
+        
+        if (livesText != null)
+        {
+            livesText.text = "Lives: " + lives;
+        }
+    }
+    
+    public void PlayerHit()
+    {
+        if (gameOver)
+            return;
+            
+        lives--;
+        Debug.Log("Player hit! Lives remaining: " + lives);
+        
+        if (lives <= 0)
+        {
+            GameOver();
+        }
+    }
+    
+    void GameOver()
+    {
+        gameOver = true;
+        Debug.Log("Game Over! Final Score: " + score);
+        
+        if (player != null)
+        {
+            player.enabled = false;
+        }
+        
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(true);
+            gameOverText.text = "Game Over!\nFinal Score: " + score + "\nPress R to Restart";
+        }
+    }
+    
+    void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     
     public int GetScore()
@@ -73,13 +119,8 @@ public class GameManager : MonoBehaviour
         return score;
     }
     
-    public int GetKeysRequired()
+    public int GetLives()
     {
-        return currentKeysRequired;
-    }
-    
-    public float GetGameTime()
-    {
-        return gameTime;
+        return lives;
     }
 }

@@ -600,9 +600,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 648673515}
   keysText: {fileID: 133235172}
-  livesText: {fileID: 0}
-  gameOverText: {fileID: 0}
-  startingLives: 3
 --- !u!4 &727624576
 Transform:
   m_ObjectHideFlags: 0
@@ -1040,7 +1037,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1931695972}
-  - component: {fileID: 1931695973}
+  - component: {fileID: 1931695971}
   m_Layer: 0
   m_Name: ObjectSpawner
   m_TagString: Untagged
@@ -1048,6 +1045,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1931695971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931695970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878441d0a9385c74ca5c7bd177addc41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyPrefab: {fileID: 3766331039189224641, guid: c27e3e1a14fc3cc42aa757f7cef3935d,
+    type: 3}
+  doorPrefab: {fileID: 8117359253151342498, guid: 2b0e5cb7e3fc2904e9a07ba29e65091d,
+    type: 3}
+  spawnDistance: 50
+  minSpawnInterval: 2
+  maxSpawnInterval: 5
+  keySpawnRate: 0.6
+  laneDistance: 3
+  player: {fileID: 1506598829}
 --- !u!4 &1931695972
 Transform:
   m_ObjectHideFlags: 0
@@ -1063,25 +1082,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1931695973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931695970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3fbd6fdc6a58634f9e3bef826690a4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fanPrefab: {fileID: 1359253761076515835, guid: 5e386a50530ce604d94ae555ccfdeabd,
-    type: 3}
-  spawnDistance: 50
-  spawnInterval: 8
-  fanHeight: 5
-  fanCenterX: 0
-  player: {fileID: 1506598829}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
