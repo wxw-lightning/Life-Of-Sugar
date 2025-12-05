@@ -2,60 +2,78 @@ using UnityEngine;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    [Header("Prefabs")]
-    public GameObject keyPrefab;
-    public GameObject doorPrefab;
-    
     [Header("Spawn Settings")]
-    public float spawnDistance = 50f;
-    public float minSpawnInterval = 2f;
-    public float maxSpawnInterval = 5f;
-    public float keySpawnRate = 0.7f;
-    public float laneDistance = 3f;
-    
-    [Header("References")]
-    public Transform player;
-    
-    private float nextSpawnTime;
-    private float spawnZ;
-    
-    void Start()
-    {
-        spawnZ = player.position.z + spawnDistance;
-        ScheduleNextSpawn();
-    }
-    
+    public GameObject smallObjectPrefab;
+    public GameObject midObjectPrefab;
+    public GameObject largeObjectPrefab;
+    public float spawnInterval = 2f;
+    public float spawnRangeX = 8f;
+    public float spawnHeight = 10f;
+    public float destroyHeight = -2f;
+
+    private float spawnTimer;
+
     void Update()
     {
-        if (Time.time >= nextSpawnTime)
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= spawnInterval)
         {
             SpawnRandomObject();
-            ScheduleNextSpawn();
+            spawnTimer = 0f;
         }
+
+        CleanupFallenObjects();
     }
-    
-    void ScheduleNextSpawn()
-    {
-        nextSpawnTime = Time.time + Random.Range(minSpawnInterval, maxSpawnInterval);
-    }
-    
+
     void SpawnRandomObject()
     {
-        int lane = Random.Range(0, 3);
-        float xPosition = (lane - 1) * laneDistance;
-        
-        spawnZ = player.position.z + spawnDistance;
-        Vector3 spawnPosition = new Vector3(xPosition, 1f, spawnZ);
-        
-        bool spawnKey = Random.value < keySpawnRate;
-        
-        if (spawnKey && keyPrefab != null)
+        GameObject prefabToSpawn = GetRandomPrefab();
+
+        if (prefabToSpawn == null)
         {
-            Instantiate(keyPrefab, spawnPosition, Quaternion.identity);
+            Debug.LogWarning("No prefab assigned to ObjectSpawner!");
+            return;
         }
-        else if (doorPrefab != null)
+
+        float randomX = Random.Range(-spawnRangeX, spawnRangeX);
+        Vector3 spawnPosition = new Vector3(randomX, spawnHeight, 0f);
+
+        Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+    }
+
+    GameObject GetRandomPrefab()
+    {
+        int randomIndex = Random.Range(0, 3);
+
+        switch (randomIndex)
         {
-            Instantiate(doorPrefab, spawnPosition, Quaternion.identity);
+            case 0:
+                return smallObjectPrefab;
+            case 1:
+                return midObjectPrefab;
+            case 2:
+                return largeObjectPrefab;
+            default:
+                return smallObjectPrefab;
+        }
+    }
+
+    void CleanupFallenObjects()
+    {
+        FallingObject[] fallingObjects = FindObjectsOfType<FallingObject>();
+
+        foreach (FallingObject fallingObject in fallingObjects)
+        {
+            if (fallingObject.transform.position.y < destroyHeight)
+            {
+                if (!fallingObject.IsCaught())
+                {
+                    CatchGameManager.Instance.IncreaseMissedCount(fallingObject.GetGlobalPenalty());
+                }
+
+                Destroy(fallingObject.gameObject);
+            }
         }
     }
 }
