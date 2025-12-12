@@ -25,9 +25,9 @@ public class RotatingFan : MonoBehaviour
     
     void HitPlayer(PlayerController player)
     {
-        if (GameManager.Instance != null)
+        if (Level2GameManager.Instance != null)
         {
-            GameManager.Instance.PlayerHit();
+            Level2GameManager.Instance.PlayerHit();
         }
         Debug.Log("Player hit the fan blade!");
     }

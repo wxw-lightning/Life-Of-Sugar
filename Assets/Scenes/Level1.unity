@@ -387,7 +387,7 @@ Canvas:
   m_GameObject: {fileID: 506772632}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -415,6 +415,7 @@ RectTransform:
   m_Children:
   - {fileID: 648673512}
   - {fileID: 133235171}
+  - {fileID: 732168312}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -578,7 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 727624576}
-  - component: {fileID: 727624575}
+  - component: {fileID: 727624577}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -586,23 +587,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &727624575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727624574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24701df6c453d054f93d9fb8f8a9a69a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 648673515}
-  keysText: {fileID: 133235172}
-  livesText: {fileID: 0}
-  gameOverText: {fileID: 0}
-  startingLives: 3
 --- !u!4 &727624576
 Transform:
   m_ObjectHideFlags: 0
@@ -618,6 +602,118 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &727624577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727624574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b934e97fb0a3ee4f9cd778b30abf87f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 648673515}
+  keysText: {fileID: 133235172}
+  storyText: {fileID: 732168313}
+  stage1Message: "You are a glucose molecule. The body\u2019s fuel. You need to enter
+    the door to provide energy.\nInsulin opens the way for you, Without them, the
+    door won\u2019t open."
+  stage2Message: "This is Type I diabetes:\nthe body\u2019s immune guardians turn
+    against their own insulin-producing cells, wiping out the pancreas\u2019s ability
+    to create insulin. With almost no insulin left, glucose can\u2019t enter the
+    cells and begins to build up in the bloodstream. It\u2019s an abrupt breakdown
+    of the system, caused by an unexpected internal attack."
+  stage3Message: "This is Type II diabetes:\nthe cells gradually become resistant
+    to insulin\u2019s signals, forcing the pancreas to work overtime. Over the years,
+    the insulin-producing cells tire out, and insulin levels fall short. It\u2019s
+    a slow, creeping imbalance where demand rises, efficiency drops, and the system
+    starts to overload. Now each door requires 3 keys."
+  firstDifficultyTime: 30
+  secondDifficultyTime: 60
+  keysRequiredAtSecondStage: 3
+  normalKeySpawnRate: 0.6
+  reducedKeySpawnRate: 0.1
+--- !u!1 &732168311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732168312}
+  - component: {fileID: 732168314}
+  - component: {fileID: 732168313}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &732168312
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732168311}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 506772636}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 200}
+  m_SizeDelta: {x: -400, y: 400}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &732168313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732168311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 36
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &732168314
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732168311}
+  m_CullTransparentMesh: 1
 --- !u!1 &917033801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,15 +1168,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1931695970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3fbd6fdc6a58634f9e3bef826690a4b, type: 3}
+  m_Script: {fileID: 11500000, guid: 797f0b1c4db71814882ce4be55fb58a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fanPrefab: {fileID: 1359253761076515835, guid: 5e386a50530ce604d94ae555ccfdeabd,
+  keyPrefab: {fileID: 3766331039189224641, guid: c27e3e1a14fc3cc42aa757f7cef3935d,
+    type: 3}
+  doorPrefab: {fileID: 8117359253151342498, guid: 2b0e5cb7e3fc2904e9a07ba29e65091d,
     type: 3}
   spawnDistance: 50
-  spawnInterval: 8
-  fanHeight: 5
-  fanCenterX: 0
+  minSpawnInterval: 2
+  maxSpawnInterval: 5
+  laneDistance: 3
   player: {fileID: 1506598829}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
